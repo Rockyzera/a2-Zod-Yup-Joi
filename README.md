@@ -13,6 +13,9 @@
 | Nome | GitHub | Responsabilidade |
 |---|---|---|
 | Roger Gabriel | [@Rockyzera](https://github.com/Rockyzera) | Desenvolvimento e documentação do projeto |
+| Italo Bazalia Zigart | [@italozigart](https://github.com/italozigart) | Desenvolvimento e documentação do projeto |
+| Thiago Henrique Leu | [@ThiagoHenriqueLeu](https://github.com/ThiagoHenriqueLeu) | Desenvolvimento e documentação do projeto |
+| João Pedro Cotrim Dal Santo | [@JoaoPedroCotrim](https://github.com/JoaoPedroCotrim) | Desenvolvimento e documentação do projeto |
 
 O projeto está sendo conduzido individualmente neste momento. A revisão de código será solicitada a um colega ou ao professor, conforme os acordos da disciplina.
 
