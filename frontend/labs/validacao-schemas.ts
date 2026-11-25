@@ -1,4 +1,5 @@
 import { performance } from 'node:perf_hooks'
+import { cpus, platform, arch } from 'node:os'
 import { beneficiarioJoi, beneficiarioYup, beneficiarioZod, type BeneficiarioZod } from '../src/labs/beneficiarioSchemas'
 
 const entradas = {
@@ -42,8 +43,8 @@ for (const [tipo, entrada] of Object.entries(entradas)) {
   }
 }
 
-const iteracoes = Number(process.env.BENCH_ITERATIONS ?? 5_000)
-const aquecimento = Math.min(1_000, iteracoes)
+const iteracoes = Number(process.env.BENCH_ITERATIONS ?? 20_000)
+const aquecimento = Math.min(5_000, iteracoes)
 const rodadas = 5
 
 function medir(validar: Validator, entrada: unknown): number {
@@ -57,13 +58,27 @@ function mediana(valores: number[]): number {
   return [...valores].sort((a, b) => a - b)[Math.floor(valores.length / 2)]
 }
 
-console.log(`Node ${process.version}; ${iteracoes.toLocaleString('pt-BR')} validações por rodada; mediana de ${rodadas} rodadas.`)
-console.log('Conversão/normalização habilitada nos três schemas; mede-se validação síncrona e não o consumo da saída.')
+console.log(`Node ${process.version}; ${platform()} ${arch()}; CPU ${cpus()[0]?.model ?? 'não identificada'}.`)
+console.log(`${iteracoes.toLocaleString('pt-BR')} validações por rodada; aquecimento de ${aquecimento.toLocaleString('pt-BR')}; mediana de ${rodadas} rodadas.`)
+console.log('Validação síncrona; entrada e regras iguais; entradas sem coerção de tipos; conversões configuradas para normalizar strings.')
 
 for (const [tipo, entrada] of Object.entries(entradas)) {
   console.log(`\nEntrada ${tipo}:`)
-  for (const [nome, validar] of Object.entries(validadores)) {
-    const tempos = Array.from({ length: rodadas }, () => medir(validar, entrada))
+  const nomes = Object.keys(validadores)
+  const temposPorValidador = Object.fromEntries(nomes.map((nome) => [nome, [] as number[]]))
+  for (let rodada = 0; rodada < rodadas; rodada++) {
+    // Alterna quem mede primeiro para reduzir o viés de ordem entre rodadas.
+    const ordem = nomes.map((_, indice) => nomes[(indice + rodada) % nomes.length])
+    for (const nome of ordem) {
+      const validar = validadores[nome]
+      if (!validar) continue
+      temposPorValidador[nome]?.push(medir(validar, entrada))
+    }
+  }
+  for (const nome of nomes) {
+    const validar = validadores[nome]
+    if (!validar) continue
+    const tempos = temposPorValidador[nome] ?? []
     const segundos = mediana(tempos)
     const operacoesPorSegundo = Math.round(iteracoes / segundos)
     console.log(`  ${nome}: ${operacoesPorSegundo.toLocaleString('pt-BR')} ops/s (mediana ${segundos.toFixed(3)} s)`)

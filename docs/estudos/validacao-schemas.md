@@ -39,7 +39,7 @@ Para abrir os formulários, inicie o front-end na pasta `frontend/` e visite `ht
 npm run lab:schemas
 ```
 
-O programa aquece os validadores, mede entradas válidas e inválidas (uma regra inválida por vez), repete cinco rodadas e apresenta a mediana em operações por segundo. O lote padrão é de 5 mil validações por biblioteca e cenário; ajuste pela variável `BENCH_ITERATIONS`, por exemplo:
+O programa confere primeiro se os três validadores aceitam/rejeitam os cenários esperados, aquece cada implementação, mede entradas válidas e inválidas (uma regra inválida por vez), alterna qual biblioteca começa em cada rodada e apresenta a mediana de cinco rodadas em operações por segundo. O lote padrão é de 20 mil validações por biblioteca e cenário; ajuste pela variável `BENCH_ITERATIONS`, por exemplo:
 
 ```powershell
 $env:BENCH_ITERATIONS = "10000"
@@ -52,16 +52,18 @@ Os números medem o conjunto e as versões instaladas nesta máquina, com conver
 
 Uma comparação justa registra junto dos números: versão do Node, versões do Zod/Yup/Joi, quantidade de iterações e opções usadas. A mediana evita que uma rodada isolada determine a conclusão. Para um formulário pequeno, desempenho raramente deve decidir sozinho; inferência de tipos, mensagens úteis e manutenção tendem a ter mais impacto no dia a dia.
 
-### Primeira medição neste ambiente
+### Medição executada
 
-Executado com Node `v24.14.0`, Zod `4.6.7`, Yup `1.7.1` e Joi `18.3.2`, usando 5 mil validações por rodada e mediana de cinco rodadas:
+Executado em 25/11/2026 com Node `v24.14.0`, Zod `4.6.7`, Yup `1.7.1` e Joi `18.3.2`, Windows x64, CPU Intel Core i5-12450H, usando 20 mil validações por rodada, aquecimento de 5 mil e mediana de cinco rodadas. Cada entrada inválida falha em uma regra: descrição acima de 500 caracteres. O tempo mede validação síncrona e a criação do resultado/erros, não renderização React, bundle do navegador ou latência da API.
 
 | Entrada | Zod | Yup | Joi |
 |---|---:|---:|---:|
-| Válida | 945.448 ops/s | 75.849 ops/s | 80.912 ops/s |
-| Inválida (descrição acima de 500 caracteres) | 446.863 ops/s | 7.861 ops/s | 69.463 ops/s |
+| Válida | 1.142.335 ops/s | 73.703 ops/s | 83.548 ops/s |
+| Inválida (descrição acima de 500 caracteres) | 822.978 ops/s | 7.187 ops/s | 74.396 ops/s |
 
-É um retrato desta execução, não um ranking universal: o hardware não foi registrado, e o caminho de erro de cada biblioteca tem custos próprios. Use o comando do laboratório no ambiente da apresentação para reproduzir e substituir esses números.
+**Como ler:** `ops/s` significa validações concluídas em um segundo. Por exemplo, `1.142.335 ops/s` quer dizer que, neste teste, o Zod validou cerca de 1,14 milhão de entradas em um segundo. Um número maior indica mais validações por segundo neste cenário. Isso mede apenas o schema em lote; não significa que a tela ou a API da SocialConnect ficará milhões de vezes mais rápida. Em um formulário comum, a diferença pode ser imperceptível.
+
+É um retrato desta máquina e destas versões, não um ranking universal. O caminho de erro de cada biblioteca tem custos próprios, e os resultados podem variar com hardware, versões, opções e carga do sistema. Reproduza com `npm run lab:schemas` antes de comparar em outro ambiente.
 
 ## Integração com React Hook Form
 
