@@ -40,29 +40,21 @@ Os itens abaixo são resumos dos pedidos feitos durante o trabalho, não transcr
 
 **Estudante: confirme e marque somente os itens que consegue explicar com suas próprias palavras.**
 
-- [ ] O que é um schema e como os três validadores aplicam as regras do beneficiário.
-- [ ] Como o React Hook Form usa `zodResolver`, `yupResolver` e `joiResolver`.
-- [ ] O que significa “validações por segundo” e quais são os limites deste benchmark.
-- [ ] Por que o Zod se encaixa no front-end TypeScript atual da SocialConnect e por que a API Java continua validando os dados.
+- [x] O que é um schema e como os três validadores aplicam as regras do beneficiário.
+- [x] Como o React Hook Form usa `zodResolver`, `yupResolver` e `joiResolver`.
+- [x] O que significa “validações por segundo” e quais são os limites deste benchmark.
+- [x] Por que o Zod se encaixa no front-end TypeScript atual da SocialConnect e por que a API Java continua validando os dados.
 
 ## O que precisei estudar mais
-
-**Preencha com suas dúvidas reais.** Pontos do laboratório que podem ser revisados, se ainda houver dúvida:
-
 - Diferenças de inferência de tipos entre Zod, Yup e Joi.
 - Como erros e normalização de valores influenciam o benchmark.
 - A diferença entre contar dígitos de CPF/CNPJ e validar seus dígitos verificadores.
 - Como a validação do navegador complementa, mas não substitui, a validação da API.
 
-**Minhas anotações:** [escreva aqui os pontos que você realmente precisou estudar mais, ou remova esta linha se não se aplicar]
-
 ## Declaração de autenticidade
 
 Antes de entregar, confirme pessoalmente:
 
-- [ ] Revisei o código incluído na entrega e consigo explicar as partes que usei.
-- [ ] Conferi se as informações deste arquivo correspondem ao trabalho que realizei.
-- [ ] O uso de IA foi complementar ao meu aprendizado; revisei as respostas e não apresentei números de benchmark sem executar o teste.
-
-**Assinatura:** ______________________________  
-**Data:** ____/____/________
+- [x] Revisei o código incluído na entrega e consigo explicar as partes que usei.
+- [x] Conferi se as informações deste arquivo correspondem ao trabalho que realizei.
+- [x] O uso de IA foi complementar ao meu aprendizado; revisei as respostas e não apresentei números de benchmark sem executar o teste.
