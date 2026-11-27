@@ -95,6 +95,27 @@ A interface ficará disponível em `http://localhost:5173` (ou `http://127.0.0.1
 
 O front-end usa Material UI para os componentes visuais e React Hook Form com Zod para validar os formulários. As máscaras de CPF/CNPJ e telefone são aplicadas apenas na interface; a API recebe somente os dígitos.
 
+### Rodar somente o mini-laboratório Zod, Yup e Joi
+
+O mini-laboratório funciona sem iniciar o back-end, o banco de dados ou o Docker. Ele usa dados fictícios, não chama a API e não salva os formulários.
+
+Pré-requisito: Node.js `^20.19.0` ou `>=22.12.0` e npm. Se ainda não clonou o repositório:
+
+```powershell
+git clone https://github.com/Rockyzera/a2-Zod-Yup-Joi.git
+cd a2-Zod-Yup-Joi/frontend
+npm install
+npm run dev
+```
+
+Se o repositório já estiver clonado, entre na pasta `frontend/` e execute `npm install` e `npm run dev`. Depois, abra `http://localhost:5173/laboratorio-validacao` no navegador.
+
+Para executar a comparação de desempenho, em outro terminal dentro de `frontend/`, rode:
+
+```powershell
+npm run lab:schemas
+```
+
 Para validar a compilação de produção do front-end, execute dentro de `frontend/`:
 
 ```powershell
