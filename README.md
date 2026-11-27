@@ -101,7 +101,7 @@ O mini-laboratório funciona sem iniciar o back-end, o banco de dados ou o Docke
 
 Pré-requisito: Node.js `^20.19.0` ou `>=22.12.0` e npm. Se ainda não clonou o repositório:
 
-```powershell
+```powershell 
 git clone https://github.com/Rockyzera/a2-Zod-Yup-Joi.git
 cd a2-Zod-Yup-Joi/frontend
 npm install
@@ -113,16 +113,16 @@ Se o repositório já estiver clonado, entre na pasta `frontend/` e execute `npm
 Para executar a comparação de desempenho, em outro terminal dentro de `frontend/`, rode:
 
 ```powershell
-npm run lab:schemas
+npm run lab:schemas 
 ```
 
 Para validar a compilação de produção do front-end, execute dentro de `frontend/`:
 
-```powershell
+```powershell 
 npm.cmd run build
 ```
 
-## Fluxo de trabalho Git
+## Fluxo de trabalho Git 
 
 1. Toda tarefa começa como uma **issue** vinculada ao backlog.
 2. Criar uma branch a partir de `main`, usando `feat/nome-curto`, `fix/nome-curto` ou `docs/nome-curto`.
